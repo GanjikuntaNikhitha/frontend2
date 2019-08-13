@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html ng-app = "TableApp" ng-controller = "TableController">
+<head>
+  <style>
+  .container {
+    width: 100%;
+             height: 200pt;
+background-color: bisque;
+border-block-end-color: blue
+    }
+    .container1 {
+    width: 100%;
+             height: 200pt;
+text-align: center;
+border-block-end-color: blue
+    }
+    /* .my-input {
+    transition:all linear 0.5s;
+    background: transparent;
+  }
+  .my-input.ng-invalid {
+    color:white;
+    background: red;
+  } */
+    .col-25 {
+      float: left;
+      width: 10%;
+      margin-top: 6px;
+    }
+    .Message {
+      background-color: blueviolet;
+      width: 100%;
+             height: 100pt;
+      color: white;
+      font-size: 100%;
+      font-family: 'Courier New', Courier, monospace;
+    }
+    
+    .content-area {
+  border: 1px solid black;
+  margin-top: 10px;
+  padding: 10px;
+  background-color: aqua;
+}
+
+.sample-show-hide {
+  transition: all linear 0.10s;
+}
+.sample-show-hide.ng-hide {
+  opacity: 0;
+}
+.glyphicon glyphicon-thumbs-up {
+  font-size:60px;
+  color:red;
+  text-shadow:2px 2px 4px #000000;
+}
+  </style>
+    <script src= "https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"> </script>
+    <script src="/src/controller/controller.js"></script>
+</head>
+
+<body>
+
+   
+
+  <div class="container">
+    <form name = "myForm" ng-submit="add(myName, myEmail, myphone, myAddress)">
+        <div class="col-25">
+          <label for="fname">Name</label>
+        </div>
+          <input type="text" id="fname" name="firstname" ng-model="myName" placeholder="Your name.." ng-change="errorCheck('name', myName)">
+          <span style="color:red">{{errorName}}</span>
+
+          <!-- <span ng-show="myName.length>12"  style="color:red" >Maximum 12 charecters allowed</span> -->
+
+       <br></br>
+       <div class="col-25">
+<label for="lname">Email</label>
+       </div>
+<input  name="email" type="email" ng-model="myEmail" placeholder="Your email .."  ng-change="errorCheck('email', myEmail)" />
+<span style="color:red">{{errorName1}}</span>
+<!-- <span class="error" ng-show="myForm.email.$error.required">Required!</span>
+<span style="color:red" ng-show ="myForm.email.$error.email">no email is found</span> -->
+
+<br></br>
+<div class="col-25">
+<label for="lphoneno">Phone Number </label>
+</div>
+<input name="Phone number"  ng-model="myphone" placeholder="Your Phone Num.." class="my-input" ng-change="errorCheck('phone', myphone)" />
+<span style="color:red">{{errorName2}}</span>
+<!-- <span style="color:red" ng-show="myForm.phoneno.$dirty && myForm.phoneno.$invalid">The phone number is required.</span>
+<span ng-show="myphone.toString().length>10"  style="color:red" >Maximum 10 numbers allowed</span> -->
+
+
+<label>Your Country Name: </label> 
+<input list="countrys" id="coutriesinput"> 
+<datalist id="countrys"> 
+    <option value="India"/> 
+    <option value="Japan"/> 
+    <option value="Europe"/> 
+    <option value="Australia"/> 
+    <option value="Srilanka"/> 
+</datalist> 
+<button onclick="datalistcall()" type="button"> 
+  Click Here</button> 
+  <p style="text-align: center" id="output"></p> 
+
+ 
+
+<br></br>
+<div class="col-25">
+  <label for="laddress">Address</label>
+  </div>
+  <textarea  name ="address" ng-model="myAddress" rows="5"style="color:red; font-weight: bold; font-size:12px;" placeholder="Your address here.."></textarea>
+  <span style="color:red" ng-show="myForm.address.$dirty && myForm.address.$invalid">The address is required.</span>
+    <div style="text-align: right;">
+              <button type="submit"  ng-disabled="!myphone || !myEmail || !myAddress || errorName || errorName1 || errorName2 " >Add</button>
+          </div>
+            <div style="text-align: right;">
+             NUMBER OF USERS:   {{countnum}} 
+            </div>
+      </div>
+   
+
+    </form>
+  </div>
+
+  <div class = "Message">
+   Error Message : {{message}}
+    <!-- {{email}}
+    {{both}} -->
+  </div>
+  
+  <div ng-init="checked = true">
+    <label style ="text-align: center">
+      <input  type="checkbox" ng-model="checked" />
+      Is visible
+    </label>
+    <div class="content-area sample-show-hide" ng-show="checked">
+    Thanksssss............
+  
+    </div>
+
+  </div>
+
+  <div>
+         
+      <table>
+          <thead style="background: gray; color:white;">
+              <tr>
+                <td  style="padding:10px ">Name</td>
+                <td  style="padding:20px">Email</td>
+                <td  style="padding:20px">Phone Number</td>
+                <td  style="padding:20px">Address</td>
+                <td  style="padding:20px">Action</td>
+              </tr>
+            </thead>
+            
+       
+              <tr ng-repeat="student in Students | orderBy: 'name'">
+                <td>{{ student.name }}</td>
+                <td>{{ student.email }}</td>
+                <td>{{ student.number }}</td>
+                <td>{{ student.address }}</td>
+                <td  style="padding:20px;"><button ng-click="removeEntry($index)">X</button></td>
+              </tr>
+          
+
+
+           
+      </table>
+      
+    </div>
+<div>
+
+  <img src="/download1.png"  style="width:100%"; height="200px">
+</div>
+<br></br>
+    <div class="footer">
+      <div class="container1">
+        <h2>Available for iPhone and Android.</h2>
+        <img src="https://s3.amazonaws.com/codecademy-content/projects/shutterbugg/app-store.png" width="120px" />
+        <img src="https://s3.amazonaws.com/codecademy-content/projects/shutterbugg/google-play.png" width="110px" />
+      </div>
+    </div>
+    <i class="glyphicon glyphicon-thumbs-up"></i>
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
